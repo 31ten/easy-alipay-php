@@ -1,11 +1,15 @@
 <?php
 
+require_once getcwd() . "/../class.log.php";
+
 /**
 * A concise library for single transactions in Alipay.
 * @author bitmash
 * @version 2.0.0
 * https://github.com/bitmash/alipay-api-php
 */
+
+// $log = new Log('../logs/log.txt');
 
 class AlipayException extends Exception {}
 
@@ -37,6 +41,8 @@ class Alipay {
 	*/
 	private $_endpoint = "";
 
+	private $log = "";
+
 	/**
 	* Instantiates connection vars
 	*
@@ -56,10 +62,14 @@ class Alipay {
 			$this->_key = ""; // replace with your production private key
 			$this->_endpoint = "https://mapi.alipay.com/gateway.do";
 		}
+
+		// init logs
+		$this->log = new Log('../logs/log.txt');
+		$this->log->log('================ INIT new Alipay transactions');
 	}
 
 	/**
-	* We create a transaction URL for Alipay. There are two types of response 
+	* We create a transaction URL for Alipay. There are two types of response
 	* handlers. In some cases a transaction is delayed from being completed
 	* while it's being verified by Alipay; these ping notify_url later.
 	*
@@ -67,8 +77,8 @@ class Alipay {
 	* Alipay sends the buyer back to this URL synchronously, along with a GET response.
 	*
 	* notify_url
-	* A POST response is sent asynchronously once the payment is verified. A 
-	* 'notify_id' will be in the response that needs to be verfied by calling 
+	* A POST response is sent asynchronously once the payment is verified. A
+	* 'notify_id' will be in the response that needs to be verfied by calling
 	* verifyPayment. The 'notify_id' expires in 1 minute.
 	*
 	* @param string(64) $sale_id Your internal transaction ID for reference
@@ -95,12 +105,15 @@ class Alipay {
 			'_input_charset' => "utf-8"
 		];
 
+		$this->log->log('createPayment -> $data = ');
+		$this->log->log( print_r($data, true));
+
 		return $this->_endpoint . "?" . $this->_prepData($data);
 	}
 
 	/**
 	* Compares the signed response data from Alipay with our own key
-	* using the response parameters. We also verify the transaction by using 
+	* using the response parameters. We also verify the transaction by using
 	* the 'notify_id' and pinging Alipay again.
 	*
 	* Possible Trade Status:
@@ -128,7 +141,7 @@ class Alipay {
 			'partner' => $this->_partner_id,
 			'notify_id' => $data['notify_id']
 		];
-		
+
 		$response = $this->_send(http_build_query($request), "GET");
 
 		if (preg_match("/true$/i", $response))
@@ -178,7 +191,7 @@ class Alipay {
 		$response = curl_exec($curl);
 		$error = curl_error($curl);
 		curl_close($curl);
-		
+
 		if ($error)
 		{
 			throw new Exception($error);
@@ -203,8 +216,8 @@ class Alipay {
 	}
 
 	/**
-	* Sorts the parameters alphabetically and creates a "secure" hash with the 
-	* secret key appended. When Alipay receives the request, they perform a 
+	* Sorts the parameters alphabetically and creates a "secure" hash with the
+	* secret key appended. When Alipay receives the request, they perform a
 	* similar procedure to verify the data has not been tampered with.
 	*
 	* @param array $data Associative array of request parameters

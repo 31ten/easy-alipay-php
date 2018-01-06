@@ -1,0 +1,17 @@
+hhvm:
+  build: ./hhvm
+  volumes:
+      - ./logs/hhvm/:/var/log/hhvm
+      - ../../:/home/app
+  ports:
+    - "9000:9000"
+nginx:
+  build: ./nginx
+  volumes:
+    - ./../../:/home/app
+    - ./logs/nginx/:/var/log/nginx
+    - ./nginx/sites/:/etc/nginx/sites-available
+  ports:
+    - "8888:80"
+  links:
+    - hhvm

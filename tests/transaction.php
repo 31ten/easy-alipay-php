@@ -1,15 +1,17 @@
 <?php
 
+$url = "https://jxowrmxnbm.localtunnel.me/";
+
 require_once getcwd() . "/../Alipay.php";
 
 $sale_id = uniqid();
-$amount = 10.25;
+$amount = 1;
 $description = "A pair of shoes";
 $uuid = uuid();
 // Associate the sale id with uuid in your database for a look up once Alipay
 // pings your notify_url
-$return_url = "http://localhost/alipay/tests/return.php?sale_id=$sale_id";
-$notify_url = "http://localhost/alipay/tests/notify.php?id=$uuid";
+$return_url = $url + "tests/return.php?sale_id=$sale_id";
+$notify_url = $url + "tests/notify.php?id=$uuid";
 
 
 function uuid()
@@ -22,5 +24,5 @@ function uuid()
 
 $alipay = new Alipay();
 // Generates a one-time URL to redirect the Buyer to
-$approve = $alipay->createPayment($sale_id, $amount, "USD", $description, $return_url, $notify_url);
+$approve = $alipay->createPayment($sale_id, $amount, "GBP", $description, $return_url, $notify_url);
 echo "<a href='$approve'>Test Transaction Link</a>";

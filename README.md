@@ -1,7 +1,31 @@
-Alipay API PHP Library
-======================
+Ready to use Alipay Testing Environment
+======================================
 
-## About
+## Goal
+
+Designed to be able to test and understand how Alipay payment works within 10 minutes, using a local environment.
+
+Fork of https://github.com/bitmash/alipay-api-php including a ready to use docker php server, a basic logging system and extra-instructions to have a working environment tunneled through an URL like https://jxowrmxnbm.localtunnel.me to be able to fully test alipay interactions (especially for the notify workflow that requires Alipay server to do a POST request on an accessible URL (localhost won't work here))
+
+## Dependencies
+
+  * docker
+  * npm
+  * localtunnel (npm install -g localtunnel) or similar tunneling solution
+
+## Installation
+
+  * git clone
+  * cd alipay-testing-environment
+  * docker-compose up -d
+  * lt --port 8888
+  * modify the URL in tests/transaction.php by the one provided by localtunnel (https://MODIFYHERE.localtunnel.me)
+
+## Testing Payments
+
+## About the Alipay php Library
+
+Fork of https://github.com/bitmash/alipay-api-php
 
 This is a concise library written in PHP for the Alipay API merchant account for overseas merchants. It's basic and only offers support for creating direct pay by user transactions - also known as "Cross-border Website Payment". Alipay provides documentation and code examples at https://globalprod.alipay.com/order/integrationGuide.htm.
 
