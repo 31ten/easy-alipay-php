@@ -22,7 +22,8 @@ Fork of https://github.com/bitmash/alipay-api-php including a ready to use docke
   * modify the URL in tests/transaction.php by the one provided by localtunnel (https://YOURURL.localtunnel.me)
   * go to https://YOURURL.localtunnel.me/tests/transaction.php
   * when choosing the payment method on alipay gateway, choose to login with the computer with their testing account (see details below)
-  * Check the logs in logs/log.txt
+  * Check the php logs in logs/log.txt
+  * If some answers are missing, check the docker/nginx/access.log to see if alipay servers are sending requests
 
 ## About the Alipay php Library
 

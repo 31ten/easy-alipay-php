@@ -1,6 +1,6 @@
 <?php
 
-$test_url = "https://qlnaxdohet.localtunnel.me/";
+$test_url = "https://zunadssjql.localtunnel.me";
 // $test_url = "http://localhost:8888"; // also working
 
 require_once getcwd() . "/../Alipay.php";

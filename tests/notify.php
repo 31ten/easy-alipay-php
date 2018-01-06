@@ -17,19 +17,19 @@ $log->log('=========== ANSWER FROM ALIPAY SERVER (POST notify.php)');
 try {
     if ($alipay->verifyPayment($_POST) === false) // Transaction isn't complete
     {
-        $log->log('$alipay->verifyPayment($_POST) =' + $alipay->verifyPayment($_POST) + " => Unable to verify payment.");
+        $log->log('$alipay->verifyPayment($_POST) =' . $alipay->verifyPayment($_POST) . " => Unable to verify payment.");
         echo "Unable to verify payment.";
         return false;
     }
 } catch (Exception $e) { // Connection error
     echo $e->getMessage();
     $log->log('=== Connection error :');
-    $log->log($e->getMessage())
+    $log->log($e->getMessage());
     return false;
 } catch (AlipayException $e) { // Hash or invalid transaction error
     echo $e->getMessage();
     $log->log('=== Hash or invalid transaction error :');
-    $log->log($e->getMessage())
+    $log->log($e->getMessage());
     return false;
 }
 
