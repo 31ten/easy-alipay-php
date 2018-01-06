@@ -1,6 +1,7 @@
 <?php
 
-$url = "https://jxowrmxnbm.localtunnel.me/";
+$test_url = "https://qlnaxdohet.localtunnel.me/";
+// $test_url = "http://localhost:8888"; // also working
 
 require_once getcwd() . "/../Alipay.php";
 
@@ -10,9 +11,8 @@ $description = "A pair of shoes";
 $uuid = uuid();
 // Associate the sale id with uuid in your database for a look up once Alipay
 // pings your notify_url
-$return_url = $url + "tests/return.php?sale_id=$sale_id";
-$notify_url = $url + "tests/notify.php?id=$uuid";
-
+$return_url = $test_url . "/tests/return.php?sale_id=$sale_id";
+$notify_url = $test_url . "/tests/notify.php?id=$uuid";
 
 function uuid()
 {

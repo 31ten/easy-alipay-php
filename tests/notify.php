@@ -12,7 +12,7 @@ $alipay = new Alipay();
 
 // @todo: Verify system transaction ID hasn't been used by looking it up in your DB.
 
-$log->log('=========== notify.php');
+$log->log('=========== ANSWER FROM ALIPAY SERVER (POST notify.php)');
 
 try {
     if ($alipay->verifyPayment($_POST) === false) // Transaction isn't complete

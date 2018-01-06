@@ -2,7 +2,7 @@
 
 require_once getcwd() . "/../class.log.php";
 $log = new Log('../logs/log.txt');
-$log->log('=========== return.php');
+$log->log('=========== ANSWER FROM ALIPAY SERVER (GET return.php)');
 
 $sale_id = $_GET['sale_id'];
 
